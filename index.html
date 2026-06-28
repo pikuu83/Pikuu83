@@ -1,1150 +1,775 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Pikuu | Rawful Islam Rubayet</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <style>
-    :root {
-      --primary: #00d4ff;
-      --secondary: #7b2cbf;
-      --accent: #ff006e;
-      --text: #ffffff;
-      --text-muted: #a0a0a0;
-      --glass: rgba(20, 20, 35, 0.7);
-      --glass-border: rgba(255, 255, 255, 0.1);
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      font-family: 'Poppins', 'Hind Siliguri', sans-serif;
-      color: var(--text);
-      background: #0a0a0f;
-      overflow-x: hidden;
-      line-height: 1.6;
-    }
-
-    /* Navigation - Mobile Optimized */
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 12px 15px;
-      background: rgba(10, 10, 15, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--glass-border);
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .logo {
-      font-size: 1.4em;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 1px;
-    }
-
-    .nav-center {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      order: 3;
-      width: 100%;
-      justify-content: center;
-      padding-top: 5px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      margin-top: 5px;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 25px;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .nav-links a {
-      color: var(--text-muted);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.9em;
-      transition: all 0.3s ease;
-      position: relative;
-      padding: 5px 0;
-    }
-
-    .nav-links a:hover, .nav-links a.active {
-      color: var(--primary);
-      text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
-    }
-
-    .lang-toggle {
-      display: flex;
-      gap: 5px;
-      background: rgba(255, 255, 255, 0.05);
-      padding: 4px;
-      border-radius: 20px;
-      border: 1px solid var(--glass-border);
-      order: 2;
-    }
-
-    .lang-btn {
-      padding: 6px 12px;
-      border: none;
-      background: transparent;
-      color: var(--text-muted);
-      cursor: pointer;
-      border-radius: 15px;
-      font-weight: 600;
-      font-size: 0.8em;
-      transition: all 0.3s ease;
-      font-family: inherit;
-      white-space: nowrap;
-    }
-
-    .lang-btn.active {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      box-shadow: 0 4px 15px rgba(0, 212, 255, 0.4);
-    }
-
-    /* Main Container */
-    .container {
-      max-width: 100%;
-      margin: 0 auto;
-      padding-top: 110px;
-      min-height: 100vh;
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    /* Page Sections */
-    .page {
-      display: none;
-      animation: fadeInUp 0.8s ease;
-    }
-
-    .page.active {
-      display: block;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* HOME PAGE STYLES */
-    .home-hero {
-      min-height: calc(100vh - 110px);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-    }
-
-    /* Beautiful Galaxy Background */
-    .home-bg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/086c4387961389a37ed4db27cb7e81c1a4bea9d4.jpg') no-repeat center center;
-      background-size: cover;
-      z-index: -2;
-    }
-
-    .home-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, rgba(10,10,15,0.3) 0%, rgba(10,10,15,0.8) 100%);
-      z-index: -1;
-    }
-
-    .home-content {
-      z-index: 1;
-      max-width: 800px;
-      position: relative;
-      width: 100%;
-    }
-
-    /* Animated Stars */
-    .stars {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      overflow: hidden;
-    }
-
-    .star {
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      animation: twinkle 3s infinite;
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.3; transform: scale(1); }
-      50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 10px white; }
-    }
-
-    .planet {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(1px);
-    }
-
-    .planet-1 {
-      width: 60px;
-      height: 60px;
-      background: radial-gradient(circle at 30% 30%, #ff6b6b, #c92a2a);
-      top: 10%;
-      right: 10%;
-      box-shadow: 0 0 30px rgba(255, 107, 107, 0.5);
-      animation: float 6s ease-in-out infinite;
-    }
-
-    .planet-2 {
-      width: 40px;
-      height: 40px;
-      background: radial-gradient(circle at 30% 30%, #4ecdc4, #087f5b);
-      bottom: 20%;
-      left: 10%;
-      box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
-      animation: float 8s ease-in-out infinite reverse;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-20px); }
-    }
-
-    .home-badge {
-      display: inline-block;
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid var(--primary);
-      color: var(--primary);
-      padding: 8px 20px;
-      border-radius: 25px;
-      font-size: 0.85em;
-      font-weight: 600;
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
-      50% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
-    }
-
-    .home-title {
-      font-size: 2.2em;
-      font-weight: 800;
-      margin-bottom: 10px;
-      background: linear-gradient(135deg, #fff, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      line-height: 1.2;
-      text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-    }
-
-    .home-subtitle {
-      font-size: 1.1em;
-      color: var(--primary);
-      font-weight: 600;
-      margin-bottom: 20px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-    }
-
-    .home-description {
-      font-size: 1em;
-      color: rgba(255, 255, 255, 0.8);
-      max-width: 600px;
-      margin: 0 auto 30px;
-      line-height: 1.8;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-
-    /* Coding Images Showcase - BIGGER IMAGES */
-    .coding-showcase {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 30px 0;
-      flex-wrap: wrap;
-      width: 100%;
-    }
-
-    .coding-card {
-      background: var(--glass);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 15px;
-      width: 100%;
-      max-width: 350px;
-      text-align: center;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .coding-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: 0.5s;
-    }
-
-    .coding-card:hover::before {
-      left: 100%;
-    }
-
-    .coding-card:hover {
-      transform: translateY(-10px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
-    }
-
-    .coding-img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 15px;
-      margin-bottom: 10px;
-      border: 2px solid rgba(0, 212, 255, 0.3);
-    }
-
-    .coding-label {
-      font-size: 0.9em;
-      font-weight: 600;
-      color: var(--primary);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 15px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 30px;
-    }
-
-    .btn {
-      padding: 14px 30px;
-      border: none;
-      border-radius: 30px;
-      font-size: 0.95em;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      color: white;
-      box-shadow: 0 4px 20px rgba(0, 212, 255, 0.4);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 30px rgba(0, 212, 255, 0.6);
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: var(--text);
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      backdrop-filter: blur(10px);
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--primary);
-      background: rgba(0, 212, 255, 0.1);
-      transform: translateY(-3px);
-    }
-
-    /* ABOUT PAGE STYLES */
-    .about-container {
-      padding: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .about-header {
-      text-align: center;
-      margin-bottom: 30px;
-      padding: 30px 20px;
-      background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(123, 44, 191, 0.1));
-      border-radius: 25px;
-      border: 1px solid var(--glass-border);
-    }
-
-    .about-title {
-      font-size: 2em;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 20px;
-    }
-
-    .about-card {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 20px;
-      padding: 25px;
-      transition: all 0.4s ease;
-    }
-
-    .about-card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(0, 212, 255, 0.3);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-    }
-
-    .card-icon {
-      width: 50px;
-      height: 50px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.3em;
-      margin-bottom: 15px;
-      box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
-    }
-
-    .card-title {
-      font-size: 1.3em;
-      font-weight: 700;
-      margin-bottom: 15px;
-      color: var(--text);
-    }
-
-    .info-list {
-      list-style: none;
-    }
-
-    .info-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: var(--text-muted);
-      font-size: 0.9em;
-      transition: all 0.3s ease;
-    }
-
-    .info-list li:last-child {
-      border-bottom: none;
-    }
-
-    .info-list li i {
-      color: var(--primary);
-      font-size: 1em;
-      width: 20px;
-    }
-
-    .skill-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .skill-tag {
-      background: rgba(0, 212, 255, 0.1);
-      border: 1px solid rgba(0, 212, 255, 0.3);
-      padding: 6px 12px;
-      border-radius: 15px;
-      font-size: 0.8em;
-      color: var(--primary);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* CONTACT PAGE STYLES */
-    .contact-container {
-      padding: 20px;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .contact-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .contact-title {
-      font-size: 2em;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-
-    .contact-subtitle {
-      color: var(--text-muted);
-      font-size: 0.95em;
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-bottom: 25px;
-    }
-
-    .contact-item {
-      background: var(--glass);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--glass-border);
-      border-radius: 15px;
-      padding: 20px 10px;
-      text-align: center;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      color: var(--text);
-      display: block;
-    }
-
-    .contact-item:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-
-    .contact-icon {
-      width: 45px;
-      height: 45px;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 10px;
-      font-size: 1.2em;
-      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
-    }
-
-    .contact-label {
-      font-size: 0.75em;
-      color: var(--text-muted);
-      margin-bottom: 5px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .contact-value {
-      font-size: 0.85em;
-      font-weight: 600;
-      color: var(--text);
-      word-break: break-word;
-    }
-
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-    }
-
-    .social-item {
-      background: var(--glass);
-      border: 1px solid var(--glass-border);
-      border-radius: 12px;
-      padding: 15px 10px;
-      text-align: center;
-      text-decoration: none;
-      color: var(--text);
-      transition: all 0.3s ease;
-    }
-
-    .social-item:hover {
-      transform: translateY(-5px);
-      border-color: var(--primary);
-      background: rgba(0, 212, 255, 0.1);
-    }
-
-    .social-item i {
-      font-size: 1.5em;
-      margin-bottom: 5px;
-      display: block;
-    }
-
-    .social-item span {
-      font-size: 0.75em;
-      font-weight: 600;
-      display: block;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 25px 20px;
-      background: rgba(0, 0, 0, 0.5);
-      border-top: 1px solid var(--glass-border);
-      margin-top: 40px;
-    }
-
-    .footer-text {
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: 700;
-      font-size: 0.85em;
-    }
-
-    /* Tablet and Desktop */
-    @media (min-width: 768px) {
-      nav {
-        padding: 15px 30px;
-        flex-wrap: nowrap;
-      }
-
-      .nav-center {
-        order: 2;
-        width: auto;
-        border: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .lang-toggle {
-        order: 3;
-      }
-
-      .container {
-        padding-top: 80px;
-      }
-
-      .home-title {
-        font-size: 3.5em;
-      }
-
-      .home-subtitle {
-        font-size: 1.4em;
-      }
-
-      .home-description {
-        font-size: 1.1em;
-      }
-
-      .coding-card {
-        max-width: 300px;
-      }
-
-      .coding-img {
-        height: 180px;
-      }
-
-      .about-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .contact-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .social-grid {
-        grid-template-columns: repeat(5, 1fr);
-      }
-    }
-
-    @media (min-width: 1024px) {
-      .about-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .about-card[style*="grid-column"] {
-        grid-column: span 2;
-      }
-
-      .coding-showcase {
-        gap: 30px;
-      }
-
-      .coding-card {
-        max-width: 320px;
-      }
-
-      .coding-img {
-        height: 200px;
-      }
-    }
-
-    /* Mobile Specific */
-    @media (max-width: 480px) {
-      .home-title {
-        font-size: 1.8em;
-      }
-
-      .home-subtitle {
-        font-size: 0.9em;
-        letter-spacing: 2px;
-      }
-
-      .coding-card {
-        max-width: 100%;
-      }
-
-      .coding-img {
-        height: 180px;
-      }
-
-      .btn {
-        padding: 12px 25px;
-        font-size: 0.9em;
-        width: 100%;
-        justify-content: center;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .contact-item {
-        padding: 15px;
-      }
-
-      .social-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    /* Bangla Font */
-    body.bangla {
-      font-family: 'Hind Siliguri', 'Poppins', sans-serif;
-    }
-
-    body.bangla .home-title {
-      font-size: 2em;
-    }
-
-    @media (min-width: 768px) {
-      body.bangla .home-title {
-        font-size: 3em;
-      }
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #0a0a0f;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      border-radius: 3px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>🎂 A Birthday Surprise Just for You</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--pk:#FFB6C1;--rose:#C4728A;--deep:#8B2252;--gold:#D4A070;--glass:rgba(255,255,255,0.22)}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'Poppins',sans-serif;user-select:none}
+
+/* ── BG ── */
+body{background:linear-gradient(145deg,#FFE4EC,#FFD0E0,#FFC0D0)}
+
+/* ── CANVAS ── */
+#pCvs,#fCvs{position:fixed;inset:0;pointer-events:none;z-index:3}
+#fCvs{z-index:4}
+
+/* ── SCENES ── */
+.sc{
+  position:fixed;inset:0;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.9s ease;
+  overflow:hidden;z-index:10;
+  padding-bottom:80px
+}
+.sc.on{opacity:1;pointer-events:all}
+#sc2{background:linear-gradient(135deg,#100018,#3A0030,#600045)}
+#sc7{background:linear-gradient(135deg,#070115,#140420,#0A0618)}
+#sc8{background:linear-gradient(145deg,#FFD0DF,#FFB6C1,#FF8FAD,#D4407A)}
+
+/* ── CARD ── */
+.card{
+  background:rgba(255,255,255,0.24);
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border:1.5px solid rgba(255,255,255,0.55);
+  border-radius:30px;
+  box-shadow:0 12px 55px rgba(180,50,110,0.2),0 2px 18px rgba(255,182,193,0.3),inset 0 1px 0 rgba(255,255,255,0.7);
+  padding:40px 44px;text-align:center;
+  max-width:600px;width:92%;
+  position:relative;z-index:20;
+  max-height:88vh;overflow-y:auto;overflow-x:hidden
+}
+.card-sm{
+  background:rgba(255,255,255,0.18);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border:1px solid rgba(255,255,255,0.38);
+  border-radius:18px;padding:18px 24px;
+  max-width:580px;width:92%;position:relative;z-index:20
+}
+#sc7 .card{background:rgba(255,255,255,0.06);border-color:rgba(255,182,193,0.15)}
+
+/* ── TYPO ── */
+.hb{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(2rem,6vw,3.8rem);line-height:1.1;margin-bottom:12px;
+  background:linear-gradient(135deg,#6B1030,#B76E79,#FF6B9D,#D4286A);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text
+}
+.ht{
+  font-family:'Playfair Display',serif;font-weight:700;
+  font-size:clamp(1.35rem,4vw,2.3rem);color:#7A1A40;
+  line-height:1.2;margin-bottom:10px
+}
+.it{font-family:'Playfair Display',serif;font-style:italic;color:#9A4060;font-size:1.05rem;margin-bottom:16px}
+.bd{font-size:clamp(0.88rem,2.3vw,1.02rem);color:#8B3050;line-height:1.78;font-weight:400}
+.mt{font-size:0.83rem;color:#C080A0;margin-top:6px}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  background:linear-gradient(135deg,#C4728A,#E05585,#D4286A);
+  color:#fff;font-family:'Poppins',sans-serif;
+  font-size:clamp(0.88rem,2.4vw,1.02rem);font-weight:600;
+  padding:14px 36px;border-radius:50px;border:none;cursor:pointer;
+  box-shadow:0 6px 30px rgba(180,50,110,0.5),inset 0 1px 0 rgba(255,255,255,0.25);
+  transition:all 0.28s ease;letter-spacing:0.2px;
+  margin-top:20px;position:relative;overflow:hidden
+}
+.btn:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 42px rgba(180,50,110,0.6)}
+.btn:active{transform:scale(0.97)}
+.btn-g{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.28);color:#8B2252;
+  font-size:0.93rem;font-weight:500;
+  padding:11px 26px;border-radius:50px;
+  border:1.5px solid rgba(195,114,138,0.35);
+  cursor:pointer;transition:all 0.28s;
+  backdrop-filter:blur(10px);margin-top:12px
+}
+.btn-g:hover{background:rgba(255,255,255,0.5);transform:translateY(-2px)}
+
+/* ── NAV BAR ── */
+#navBar{
+  position:fixed;bottom:0;left:0;right:0;
+  display:flex;align-items:center;justify-content:center;
+  gap:14px;padding:12px 20px 18px;
+  background:linear-gradient(to top,rgba(255,182,193,0.38),transparent);
+  z-index:100;backdrop-filter:blur(8px)
+}
+.dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(139,34,82,0.2);border:1.5px solid rgba(139,34,82,0.28);
+  cursor:pointer;transition:all 0.3s
+}
+.dot.on{background:#B76E79;transform:scale(1.45);border-color:#B76E79}
+.arr{
+  background:rgba(255,255,255,0.32);border:1.5px solid rgba(195,114,138,0.38);
+  color:#8B2252;font-size:1rem;width:36px;height:36px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;transition:all 0.24s;backdrop-filter:blur(8px)
+}
+.arr:hover{background:rgba(255,255,255,0.55);transform:scale(1.1)}
+.arr:active{transform:scale(0.93)}
+.arr.hid{opacity:0;pointer-events:none}
+
+/* ── MUSIC BTN ── */
+#mBtn{
+  position:fixed;top:16px;right:16px;z-index:200;
+  background:rgba(255,255,255,0.28);backdrop-filter:blur(14px);
+  border:1.5px solid rgba(255,255,255,0.5);border-radius:50%;
+  width:42px;height:42px;font-size:1.2rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.28s;box-shadow:0 4px 18px rgba(180,50,110,0.22)
+}
+#mBtn:hover{transform:scale(1.12);background:rgba(255,255,255,0.5)}
+
+/* ── SPLASH ── */
+#splash{
+  position:fixed;inset:0;z-index:999;
+  background:linear-gradient(145deg,#FFE4EC,#FFD0E0,#FFC0D0);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  cursor:pointer;transition:opacity 0.8s ease
+}
+#splash.hide{opacity:0;pointer-events:none}
+.splash-teddy{font-size:6rem;animation:tBob 2s ease-in-out infinite;margin-bottom:20px}
+.splash-h{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(1.8rem,6vw,3.2rem);
+  background:linear-gradient(135deg,#6B1030,#B76E79,#FF6B9D);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-align:center;line-height:1.15;margin-bottom:12px
+}
+.splash-sub{font-size:0.95rem;color:#A05070;margin-bottom:28px;text-align:center;line-height:1.6}
+.tap-btn{
+  background:linear-gradient(135deg,#C4728A,#E05585,#D4286A);
+  color:#fff;font-family:'Poppins',sans-serif;font-weight:600;
+  font-size:1.1rem;padding:16px 44px;border-radius:50px;border:none;
+  box-shadow:0 8px 32px rgba(180,50,110,0.5);
+  animation:tapPulse 1.8s ease-in-out infinite;cursor:pointer
+}
+@keyframes tapPulse{0%,100%{transform:scale(1);box-shadow:0 8px 32px rgba(180,50,110,0.5)}
+  50%{transform:scale(1.06);box-shadow:0 12px 44px rgba(180,50,110,0.7)}}
+.float-hearts{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.fh{position:absolute;font-size:1.4rem;animation:fhUp linear infinite;opacity:0.7}
+
+/* ── ANIMATIONS ── */
+@keyframes tBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-14px) rotate(3deg)}}
+@keyframes fhUp{0%{opacity:0.8;transform:translateY(0) rotate(0)}100%{opacity:0;transform:translateY(-100vh) rotate(30deg)}}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes fUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:translateY(0)}}
+.f0{animation:fUp 0.7s ease both}
+.f1{animation:fUp 0.7s .2s ease both;opacity:0}
+.f2{animation:fUp 0.7s .45s ease both;opacity:0}
+.f3{animation:fUp 0.7s .7s ease both;opacity:0}
+.f4{animation:fUp 0.7s .95s ease both;opacity:0}
+
+/* ── S1 ── */
+.tbig{font-size:5rem;display:block;margin-bottom:8px;animation:tBob 2.2s ease-in-out infinite}
+
+/* ── S2 MAGIC ── */
+.ring{position:absolute;border-radius:50%;border:2px solid rgba(255,182,193,0.35);animation:rOut 1.5s ease-out infinite}
+@keyframes rOut{0%{transform:scale(0.5);opacity:0.9}100%{transform:scale(3);opacity:0}}
+.mlab{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.4rem,4vw,2.2rem);
+  color:#FFB6C1;animation:mP 1.8s ease-in-out infinite;z-index:20;position:relative;text-align:center}
+@keyframes mP{0%,100%{opacity:0.45;transform:scale(0.97)}50%{opacity:1;transform:scale(1.05)}}
+
+/* ── S3 ── */
+.bal{animation:bF 3s ease-in-out infinite;display:inline-block;font-size:2.2rem}
+.bal:nth-child(2){animation-delay:.5s}.bal:nth-child(3){animation-delay:1s}
+@keyframes bF{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+.cake{font-size:4.2rem;animation:cW 2.5s ease-in-out infinite;display:block}
+@keyframes cW{0%,100%{transform:rotate(-2deg) scale(1)}50%{transform:rotate(2deg) scale(1.06)}}
+.bname{font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(1.4rem,4.5vw,2.7rem);color:#8B2252;margin:8px 0 16px;
+  text-shadow:0 2px 20px rgba(139,34,82,0.15)}
+
+/* ── S4 TEDDIES ── */
+.tstage{display:flex;align-items:center;justify-content:center;gap:65px;
+  position:relative;margin:18px 0;min-height:90px}
+.tL,.tR{font-size:4.8rem;transition:transform 2.5s cubic-bezier(0.25,0.46,0.45,0.94)}
+.tL.go{transform:translateX(42px)}
+.tR.go{transform:translateX(-42px)}
+.hbw{font-size:2.8rem;opacity:0;transform:scale(0) translateY(10px);
+  transition:all 0.9s cubic-bezier(0.34,1.56,0.64,1);
+  position:absolute;top:50%;left:50%;margin:-22px 0 0 -22px}
+.hbw.sh{opacity:1;transform:scale(1.25) translateY(-26px)}
+.hrow{font-size:1.2rem;letter-spacing:5px;opacity:0;transition:opacity 0.7s .4s;margin-top:4px}
+.hrow.sh{opacity:1}
+
+/* ── S5 WISHES ── */
+.wish{display:flex;gap:11px;align-items:flex-start;
+  padding:9px 0;border-bottom:1px solid rgba(195,114,138,0.12);
+  font-size:clamp(0.86rem,2.1vw,0.98rem);color:#7A2040;line-height:1.65;
+  opacity:0;transform:translateX(-16px);transition:all 0.48s ease}
+.wish.in{opacity:1;transform:translateX(0)}
+.wish-i{flex-shrink:0;font-size:0.95rem;margin-top:2px}
+.wish:last-child{border-bottom:none}
+
+/* ── S6 GIFT ── */
+.gift{font-size:6.5rem;cursor:pointer;display:block;text-align:center;
+  animation:gS 3s ease-in-out infinite}
+@keyframes gS{0%,100%{transform:rotate(0)}15%{transform:rotate(-6deg) scale(1.07)}
+  30%{transform:rotate(6deg) scale(1.07)}45%{transform:rotate(-3deg)}
+  60%{transform:rotate(3deg)}75%{transform:rotate(0)}}
+.gift.op{animation:gP 0.6s cubic-bezier(0.34,1.56,0.64,1) forwards}
+@keyframes gP{0%{transform:scale(1)}40%{transform:scale(1.6) rotate(-12deg)}70%{transform:scale(0.85)}100%{transform:scale(1.15)}}
+
+/* ── S7 NIGHT ── */
+.sdot{position:absolute;background:#fff;border-radius:50%;animation:tw 3s ease-in-out infinite}
+@keyframes tw{0%,100%{opacity:0.2;transform:scale(1)}50%{opacity:1;transform:scale(1.7)}}
+.moon{position:fixed;top:52px;right:65px;font-size:3.8rem;z-index:12;
+  filter:drop-shadow(0 0 24px rgba(255,220,180,0.7));animation:mG 4s ease-in-out infinite}
+@keyframes mG{0%,100%{filter:drop-shadow(0 0 20px rgba(255,220,180,0.5))}
+  50%{filter:drop-shadow(0 0 44px rgba(255,220,180,0.95))}}
+.tbox{font-size:clamp(0.87rem,2.2vw,1rem);color:#FFD6E4;line-height:1.92;text-align:left;min-height:170px}
+.tbox p{margin-bottom:8px;opacity:0;transition:opacity 0.5s}
+.tbox p.in{opacity:1}
+#sc7 .ht{color:#FFB6C1}
+
+/* ── S8 FINAL ── */
+.dT{animation:dd 1.4s ease-in-out infinite alternate;font-size:4.2rem}
+.dT:nth-child(2){animation-delay:.35s;font-size:2.8rem}
+.dT:nth-child(3){animation-delay:.7s}
+@keyframes dd{0%{transform:translateY(0) rotate(-6deg)}100%{transform:translateY(-14px) rotate(6deg)}}
+.cred{font-size:0.8rem;color:rgba(139,34,82,0.5);margin-top:22px;font-style:italic}
+.hr{position:fixed;pointer-events:none;z-index:4;animation:hF linear forwards}
+@keyframes hF{0%{opacity:1;transform:translateY(-40px)}100%{opacity:0;transform:translateY(110vh)}}
+
+@media(max-width:560px){
+  .card{padding:28px 20px}
+  .tstage{gap:32px}
+  .tL.go{transform:translateX(24px)}.tR.go{transform:translateX(-24px)}
+}
+</style>
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="logo" onclick="showPage('home')">PIKUU</div>
-    
-    <div class="nav-center">
-      <ul class="nav-links">
-        <li><a href="#" class="active" onclick="showPage('home')" data-en="Home" data-bn="হোম">Home</a></li>
-        <li><a href="#" onclick="showPage('about')" data-en="About" data-bn="আমার সম্পর্কে">About</a></li>
-        <li><a href="#" onclick="showPage('contact')" data-en="Contact" data-bn="যোগাযোগ">Contact</a></li>
-      </ul>
+<!-- ████ SPLASH / ENTRY SCREEN ████ -->
+<div id="splash">
+  <div class="float-hearts" id="fhDiv"></div>
+  <div class="splash-teddy">🧸</div>
+  <h1 class="splash-h">Someone Special<br>Has a Surprise for You 💖</h1>
+  <p class="splash-sub">A little gift, wrapped with love and care.<br>Tap below to begin your magical experience ✨</p>
+  <button class="tap-btn" onclick="beginSurprise()">Open My Surprise 🎁</button>
+</div>
+
+<canvas id="pCvs"></canvas>
+<canvas id="fCvs"></canvas>
+<button id="mBtn" onclick="toggleMusic()">🔊</button>
+
+<!-- ████ SC1 – SECRET ████ -->
+<div class="sc" id="sc1">
+  <div class="card">
+    <span class="tbig">🧸</span>
+    <h1 class="hb f0">A Little Secret...</h1>
+    <p class="it f1">"Someone very special has something just for you"</p>
+    <p class="bd f2">Someone who cares deeply about you<br>has prepared something truly magical. 💖<br>
+    <span style="font-size:0.93rem;color:#C080A0">Are you ready to open your surprise?</span></p>
+    <button class="btn f3" onclick="startMagic()">Open My Birthday Surprise 🎁</button>
+  </div>
+</div>
+
+<!-- ████ SC2 – MAGIC ████ -->
+<div class="sc" id="sc2">
+  <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center">
+    <div class="ring" style="width:180px;height:180px"></div>
+    <div class="ring" style="width:180px;height:180px;animation-delay:.5s;border-color:rgba(255,120,180,0.28)"></div>
+    <div class="ring" style="width:180px;height:180px;animation-delay:1s;border-color:rgba(255,80,150,0.18)"></div>
+  </div>
+  <div style="z-index:20;position:relative;text-align:center">
+    <div style="font-size:3.8rem;margin-bottom:20px;animation:pulse 0.9s infinite">✨</div>
+    <p class="mlab">Preparing something magical...</p>
+    <p style="color:rgba(255,182,193,0.5);font-size:0.88rem;margin-top:10px">Please wait a moment 💫</p>
+  </div>
+</div>
+
+<!-- ████ SC3 – BIRTHDAY ████ -->
+<div class="sc" id="sc3">
+  <div style="text-align:center;z-index:20;width:92%;max-width:680px">
+    <div style="margin-bottom:8px"><span class="bal">🎈</span><span class="bal">🎈</span><span class="bal">🎈</span></div>
+    <h1 class="hb f0" style="font-size:clamp(2.2rem,7vw,4.8rem)">🎉 Happy Birthday! 🎉</h1>
+    <p class="bname f1" id="bdName">Happy Birthday, Ayesha ❤️</p>
+    <span class="cake f2">🎂</span>
+    <div style="font-size:1.8rem;margin:7px 0;animation:pulse 1.6s infinite">🕯️✨🕯️</div>
+    <div class="card-sm f3" style="margin-top:14px">
+      <p class="bd" id="celTyp" style="min-height:56px"></p>
     </div>
+    <div style="font-size:1.6rem;margin-top:12px;animation:pulse 2s infinite">❤️ 🎊 ✨ 🎊 ❤️</div>
+    <button class="btn f4" onclick="goTo(4)">Continue to Teddy Bears 🧸</button>
+  </div>
+</div>
 
-    <div class="lang-toggle">
-      <button class="lang-btn active" onclick="setLanguage('en')">English</button>
-      <button class="lang-btn" onclick="setLanguage('bn')">বাংলা</button>
+<!-- ████ SC4 – TEDDIES ████ -->
+<div class="sc" id="sc4">
+  <div class="card">
+    <h2 class="ht f0">A Story of Two Hearts 🧸</h2>
+    <div class="tstage">
+      <span class="tL" id="tL">🐻</span>
+      <span class="hbw" id="hBw">❤️</span>
+      <span class="tR" id="tR" style="filter:hue-rotate(300deg) saturate(1.8)">🐻</span>
     </div>
-  </nav>
-
-  <div class="container">
-    <!-- HOME PAGE -->
-    <div id="home" class="page active">
-      <div class="home-hero">
-        <div class="home-bg"></div>
-        <div class="home-overlay"></div>
-        
-        <!-- Animated Stars -->
-        <div class="stars" id="stars"></div>
-        
-        <!-- Floating Planets -->
-        <div class="planet planet-1"></div>
-        <div class="planet planet-2"></div>
-        
-        <div class="home-content">
-          <div class="home-badge" data-en="welcome to my website" data-bn="আমার ওয়েবসাইটে স্বাগতম।">welcome to my website</div>
-          
-          <h1 class="home-title" data-en="Rawful Islam Rubayet" data-bn="রাউফুল ইসলাম রুবায়েত">Rawful Islam Rubayet</h1>
-          <p class="home-subtitle" data-en="Future Software Engineer" data-bn="ভবিষ্যৎ সফটওয়্যার ইঞ্জিনিয়ার">Future Software Engineer</p>
-          
-          <p class="home-description" data-en="Passionate coder from Bangladesh. Transforming dreams into code, one line at a time. Exploring the infinite possibilities of technology under the stars." data-bn="বাংলাদেশের একজন আগ্রহী প্রোগ্রামার। স্বপ্নকে কোডে রূপান্তরিত করছি, এক লাইন at a time। তারকাদের নিচে প্রযুক্তির অসীম সম্ভাবনা অন্বেষণ করছি।">
-            Passionate coder from Bangladesh. Transforming dreams into code, one line at a time. Exploring the infinite possibilities of technology under the stars.
-          </p>
-
-          <!-- Coding Images Showcase - BIG IMAGES -->
-          <div class="coding-showcase">
-            <div class="coding-card">
-              <img src="https://kimi-web-img.moonshot.cn/img/images.stockcake.com/616f571d61c20067f8e5382cfe7597796a89fe9a.jpg" alt="Coding Workspace" class="coding-img">
-              <div class="coding-label" data-en="Coding" data-bn="কোডিং">Coding</div>
-            </div>
-            <div class="coding-card">
-              <img src="https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/2fd5309c0f618e3ca141553e3ecd481bfdfb8e38.jpg" alt="Programming Setup" class="coding-img">
-              <div class="coding-label" data-en="Programming" data-bn="প্রোগ্রামিং">Programming</div>
-            </div>
-            <div class="coding-card">
-              <img src="https://kimi-web-img.moonshot.cn/img/thumbs.dreamstime.com/8a757e1a4f47687b10bd6c973bf1fc7e976ab43d.jpg" alt="Developer Station" class="coding-img">
-              <div class="coding-label" data-en="Developer Station" data-bn="ডেভেলপার স্টেশন">Developer Station</div>
-            </div>
-          </div>
-
-          <div class="cta-buttons">
-            <button class="btn btn-primary" onclick="showPage('about')" data-en="Explore More" data-bn="আরও দেখুন">
-              <i class="fas fa-rocket"></i> <span data-en="Explore More" data-bn="আরও দেখুন">Explore More</span>
-            </button>
-            <button class="btn btn-secondary" onclick="showPage('contact')" data-en="Contact Me" data-bn="যোগাযোগ করুন">
-              <i class="fas fa-paper-plane"></i> <span data-en="Contact Me" data-bn="যোগাযোগ করুন">Contact Me</span>
-            </button>
-          </div>
-        </div>
-      </div>
+    <div class="hrow" id="hRow">💕 &nbsp;💖 &nbsp;💕 &nbsp;💖 &nbsp;💕</div>
+    <div class="card-sm f2" style="margin-top:16px;background:rgba(255,255,255,0.13)">
+      <p class="bd" style="font-style:italic;font-size:0.92rem">
+        "Just like these little teddy bears, I hope you always stay surrounded by love and happiness." 🌸
+      </p>
     </div>
+    <button class="btn" id="s4b" style="opacity:0;pointer-events:none;margin-top:18px" onclick="goTo(5)">
+      Read Your Wishes 💌
+    </button>
+  </div>
+</div>
 
-    <!-- ABOUT PAGE -->
-    <div id="about" class="page">
-      <div class="about-container">
-        <div class="about-header">
-          <h2 class="about-title" data-en="About Me" data-bn="আমার সম্পর্কে">About Me</h2>
-        </div>
-
-        <div class="about-grid">
-          <!-- Personal Info -->
-          <div class="about-card">
-            <div class="card-icon">
-              <i class="fas fa-user-astronaut"></i>
-            </div>
-            <h3 class="card-title" data-en="Personal Info" data-bn="ব্যক্তিগত তথ্য">Personal Info</h3>
-            <ul class="info-list">
-              <li>
-                <i class="fas fa-signature"></i>
-                <span data-en="Nickname: Pikuu" data-bn="ডাকনাম: পিকু">Nickname: Pikuu</span>
-              </li>
-              <li>
-                <i class="fas fa-birthday-cake"></i>
-                <span data-en="DOB: 01 January 2010" data-bn="জন্ম: ০১ জানুয়ারি ২০১০">DOB: 01 January 2010</span>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt"></i>
-                <span data-en="Madaripur, Bangladesh" data-bn="মাদারীপুর, বাংলাদেশ">Madaripur, Bangladesh</span>
-              </li>
-              <li>
-                <i class="fas fa-flag"></i>
-                <span data-en="Nationality: Bangladeshi" data-bn="জাতীয়তা: বাংলাদেশি">Nationality: Bangladeshi</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Education -->
-          <div class="about-card">
-            <div class="card-icon">
-              <i class="fas fa-graduation-cap"></i>
-            </div>
-            <h3 class="card-title" data-en="Education" data-bn="শিক্ষা">Education</h3>
-            <ul class="info-list">
-              <li>
-                <i class="fas fa-school"></i>
-                <span data-en="Class 9/10" data-bn="নবম/দশম শ্রেণী">Class 9/10</span>
-              </li>
-              <li>
-                <i class="fas fa-building"></i>
-                <span data-en="Charmuguriya Marchant's High School" data-bn="চরমুগুরিয়া মার্চেন্টস হাই স্কুল">Charmuguriya Marchant's High School</span>
-              </li>
-              <li>
-                <i class="fas fa-book"></i>
-                <span data-en="Science Group" data-bn="বিজ্ঞান বিভাগ">Science Group</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Favorites -->
-          <div class="about-card">
-            <div class="card-icon">
-              <i class="fas fa-heart"></i>
-            </div>
-            <h3 class="card-title" data-en="Favorites" data-bn="পছন্দের জিনিস">Favorites</h3>
-            <ul class="info-list">
-              <li>
-                <i class="fas fa-palette"></i>
-                <span data-en="Colors: Black & White" data-bn="রং: কালো ও সাদা">Colors: Black & White</span>
-              </li>
-              <li>
-                <i class="fas fa-utensils"></i>
-                <span data-en="Food: Biryani & Pizza" data-bn="খাবার: বিরিয়ানি ও পিজ্জা">Food: Biryani & Pizza</span>
-              </li>
-              <li>
-                <i class="fas fa-seedling"></i>
-                <span data-en="Flower: Rose" data-bn="ফুল: গোলাপ">Flower: Rose</span>
-              </li>
-              <li>
-                <i class="fas fa-motorcycle"></i>
-                <span data-en="Bike: BMW M1000 RR" data-bn="বাইক: বিএমডব্লিউ এম১০০০ আরআর">Bike: BMW M1000 RR</span>
-              </li>
-              <li>
-                <i class="fas fa-car"></i>
-                <span data-en="Car: Tesla Cybertruck" data-bn="গাড়ি: টেসলা সাইবারট্রাক">Car: Tesla Cybertruck</span>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Skills -->
-          <div class="about-card" style="grid-column: 1 / -1;">
-            <div class="card-icon">
-              <i class="fas fa-code"></i>
-            </div>
-            <h3 class="card-title" data-en="My Skills" data-bn="আমার দক্ষতা">My Skills</h3>
-            <div class="skill-tags">
-              <span class="skill-tag"><i class="fas fa-laptop-code"></i> <span data-en="Basic Computer" data-bn="বেসিক কম্পিউটার">Basic Computer</span></span>
-              <span class="skill-tag"><i class="fas fa-file-word"></i> <span data-en="MS Word" data-bn="এমএস ওয়ার্ড">MS Word</span></span>
-              <span class="skill-tag"><i class="fab fa-html5"></i> <span data-en="HTML Basics" data-bn="HTML বেসিক">HTML Basics</span></span>
-              <span class="skill-tag"><i class="fas fa-globe"></i> <span data-en="Web Development" data-bn="ওয়েব ডেভেলপমেন্ট">Web Development</span></span>
-              <span class="skill-tag"><i class="fas fa-chart-line"></i> <span data-en="Trading" data-bn="ট্রেডিং">Trading</span></span>
-              <span class="skill-tag"><i class="fas fa-brain"></i> <span data-en="Quick Learner" data-bn="দ্রুত শিক্ষার্থী">Quick Learner</span></span>
-              <span class="skill-tag"><i class="fas fa-microchip"></i> <span data-en="Tech Enthusiast" data-bn="টেক এন্থুসিয়াস্ট">Tech Enthusiast</span></span>
-            </div>
-          </div>
-
-          <!-- Career Objective -->
-          <div class="about-card" style="grid-column: 1 / -1;">
-            <div class="card-icon">
-              <i class="fas fa-rocket"></i>
-            </div>
-            <h3 class="card-title" data-en="Career Objective" data-bn="ক্যারিয়ার লক্ষ্য">Career Objective</h3>
-            <p style="color: var(--text-muted); line-height: 1.8; font-size: 0.95em;" data-en="I want to become a successful Software Engineer. My goal is to create helpful technology and keep improving my coding skills. I dream of building applications that can make people's lives easier and contribute to the tech community in Bangladesh and beyond." data-bn="আমি একজন সফল সফটওয়্যার ইঞ্জিনিয়ার হতে চাই। আমার লক্ষ্য হলো উপকারী প্রযুক্তি তৈরি করা এবং আমার কোডিং দক্ষতা ক্রমাগত উন্নত করা। আমি এমন অ্যাপ্লিকেশন তৈরি করার স্বপ্ন দেখি যা মানুষের জীবন সহজ করতে পারে এবং বাংলাদেশ ও বিশ্বব্যাপী টেক কমিউনিটিতে অবদান রাখতে পারে।">
-              I want to become a successful Software Engineer. My goal is to create helpful technology and keep improving my coding skills. I dream of building applications that can make people's lives easier and contribute to the tech community in Bangladesh and beyond.
-            </p>
-          </div>
-
-          <!-- Ambitions -->
-          <div class="about-card" style="grid-column: 1 / -1;">
-            <div class="card-icon">
-              <i class="fas fa-star"></i>
-            </div>
-            <h3 class="card-title" data-en="Future Ambitions" data-bn="ভবিষ্যৎ আকাঙ্ক্ষা">Future Ambitions</h3>
-            <div class="skill-tags">
-              <span class="skill-tag"><i class="fas fa-rocket"></i> <span data-en="Independent Life" data-bn="স্বাধীন জীবন">Independent Life</span></span>
-              <span class="skill-tag"><i class="fas fa-parachute-box"></i> <span data-en="Skydiving License" data-bn="স্কাইডাইভিং লাইসেন্স">Skydiving License</span></span>
-              <span class="skill-tag"><i class="fas fa-water"></i> <span data-en="Scuba Diving" data-bn="স্কুবা ডাইভিং">Scuba Diving</span></span>
-              <span class="skill-tag"><i class="fas fa-plane"></i> <span data-en="World Travel" data-bn="বিশ্ব ভ্রমণ">World Travel</span></span>
-              <span class="skill-tag"><i class="fas fa-globe-americas"></i> <span data-en="Cultural Exploration" data-bn="সাংস্কৃতিক অন্বেষণ">Cultural Exploration</span></span>
-            </div>
-          </div>
-        </div>
-      </div>
+<!-- ████ SC5 – WISHES ████ -->
+<div class="sc" id="sc5">
+  <div class="card" style="max-width:630px">
+    <h2 class="ht f0">🌸 Beautiful Birthday Wishes</h2>
+    <p class="it f1" style="font-size:0.92rem;margin-bottom:12px">— written just for you —</p>
+    <div>
+      <div class="wish"><span class="wish-i">💖</span><span>Happy Birthday! May your smile always shine brighter than the stars above.</span></div>
+      <div class="wish"><span class="wish-i">⭐</span><span>May every dream in your heart come true, one beautiful day at a time.</span></div>
+      <div class="wish"><span class="wish-i">🌺</span><span>May happiness always find its way to you, no matter where life takes you.</span></div>
+      <div class="wish"><span class="wish-i">🌸</span><span>May every new day bring beautiful memories you will cherish forever.</span></div>
+      <div class="wish"><span class="wish-i">✨</span><span>You deserve all the love, joy, success, and laughter this world has to offer.</span></div>
+      <div class="wish"><span class="wish-i">🦋</span><span>Never stop smiling — because your smile makes the whole world more beautiful.</span></div>
     </div>
+    <button class="btn" style="margin-top:18px" onclick="goTo(6)">See Your Gift 🎁</button>
+  </div>
+</div>
 
-    <!-- CONTACT PAGE -->
-    <div id="contact" class="page">
-      <div class="contact-container">
-        <div class="contact-header">
-          <h2 class="contact-title" data-en="Get In Touch" data-bn="যোগাযোগ করুন">Get In Touch</h2>
-          <p class="contact-subtitle" data-en="Let's connect and create something amazing together" data-bn="চলুন সংযুক্ত হই এবং একসাথে কিছু অসাধারণ তৈরি করি">Let's connect and create something amazing together</p>
-        </div>
-
-        <div class="contact-grid">
-          <a href="tel:+8801898797248" class="contact-item">
-            <div class="contact-icon">
-              <i class="fas fa-phone-alt"></i>
-            </div>
-            <div class="contact-label" data-en="Phone" data-bn="ফোন">Phone</div>
-            <div class="contact-value">+8801898797248</div>
-          </a>
-
-          <a href="https://wa.me/8801898797248" target="_blank" class="contact-item">
-            <div class="contact-icon">
-              <i class="fab fa-whatsapp"></i>
-            </div>
-            <div class="contact-label">WhatsApp</div>
-            <div class="contact-value">+8801898797248</div>
-          </a>
-
-
-          <a href="mailto:raufulislamrubayet@gmail.com" class="contact-item">
-            <div class="contact-icon">
-              <i class="fas fa-envelope"></i>
-            </div>
-            <div class="contact-label" data-en="Email" data-bn="ইমেইল">Email</div>
-            <div class="contact-value" style="font-sze: 0.75em;">raufulislamrubayet@gmail.com</div>
-          </a>
-        </div>
-
-        <div class="social-grid">
-          <a href="https://www.facebook.com/share/17xJPX3Hp6/" target="_blank" class="social-item">
-            <i class="fab fa-facebook-f" style="color: #1877f2;"></i>
-            <span>Facebook</span>
-          </a>
-          <a href="https://x.com/R98572Rawful" target="_blank" class="social-item">
-            <i class="fab fa-twitter" style="color: #1da1f2;"></i>
-            <span>Twitter</span>
-          </a>
-          <a href="https://www.instagram.com/rawful_islam_rubayet_1" target="_blank" class="social-item">
-            <i class="fab fa-instagram" style="color: #e4405f;"></i>
-            <span>Instagram</span>
-          </a>
-          <a href="https://www.tiktok.com/@rawful.islam.rubayet" target="_blank" class="social-item">
-            <i class="fab fa-tiktok" style="color: #ff0050;"></i>
-            <span>TikTok</span>
-          </a>
-          <a href="http://t.me/Rubayet84" target="_blank" class="social-item">
-            <i class="fab fa-telegram-plane" style="color: #0088cc;"></i>
-            <span>Telegram</span>
-          </a>
-        </div>
-      </div>
+<!-- ████ SC6 – GIFT ████ -->
+<div class="sc" id="sc6">
+  <div class="card">
+    <h2 class="ht f0">I Have a Little Gift for You... 🎀</h2>
+    <p class="bd f1" style="margin-bottom:18px">Wrapped with all my love 💝</p>
+    <span class="gift f2" id="gBox" onclick="openGift()">🎁</span>
+    <p class="mt f3" id="gHint" style="animation:pulse 2s infinite;margin-top:9px">👆 Tap the gift to open!</p>
+    <div id="gMsg" style="display:none;margin-top:16px">
+      <div style="font-size:2.8rem;margin-bottom:10px;animation:pulse 1s infinite">💝 ✨ 💝</div>
+      <p class="bd" style="color:#8B2252;font-weight:500">The greatest gift I can give you is wishing you a lifetime of happiness!</p>
+      <button class="btn" onclick="goTo(7)" style="margin-top:16px">Read the Final Message 🌙</button>
     </div>
   </div>
+</div>
 
-  <!-- Footer -->
-  <footer>
-    <p class="footer-text" data-en="© 2026 Pikuu • Dream Big 🌌" data-bn="© ২০২৬ পিকু • বড় স্বপ্ন দেখো 🌌">© 2026 Pikuu • Dream Big 🌌</p>
-  </footer>
+<!-- ████ SC7 – FINAL MSG ████ -->
+<div class="sc" id="sc7">
+  <div style="position:fixed;inset:0;overflow:hidden;z-index:11" id="starF"></div>
+  <div class="moon">🌙</div>
+  <div class="card" style="max-width:590px">
+    <div style="font-size:2rem;margin-bottom:12px;animation:pulse 2s infinite">🌹 ✨ 🌹</div>
+    <h2 class="ht f0">A Message from the Heart</h2>
+    <div class="tbox f1" id="finT"></div>
+    <button class="btn" id="finB" style="display:none;margin-top:20px" onclick="goTo(8)">The Grand Finale 🎆</button>
+  </div>
+</div>
 
-  <script>
-    // Create animated stars
-    function createStars() {
-      const container = document.getElementById('stars');
-      if (!container) return;
-      
-      for (let i = 0; i < 100; i++) {
-        const star = document.createElement('div');
-        star.className = 'star';
-        star.style.left = Math.random() * 100 + '%';
-        star.style.top = Math.random() * 100 + '%';
-        star.style.animationDelay = Math.random() * 3 + 's';
-        star.style.animationDuration = (2 + Math.random() * 2) + 's';
-        container.appendChild(star);
-      }
-    }
+<!-- ████ SC8 – FINALE ████ -->
+<div class="sc" id="sc8">
+  <div style="text-align:center;z-index:20;width:92%;max-width:640px">
+    <div style="font-size:1.6rem;margin-bottom:6px;animation:pulse 0.9s infinite">🎆 🎇 🎆</div>
+    <div style="display:flex;gap:18px;justify-content:center;margin:10px 0;align-items:center">
+      <span class="dT">🐻</span><span class="dT">❤️</span>
+      <span class="dT" style="filter:hue-rotate(300deg) saturate(1.8)">🐻</span>
+    </div>
+    <div class="card f1" style="padding:34px 38px">
+      <div style="font-size:1.9rem;margin-bottom:12px;animation:pulse 1.2s infinite">❤️</div>
+      <h1 class="hb" style="font-size:clamp(1.6rem,5vw,2.9rem)">Happy Birthday Once Again!</h1>
+      <div style="font-size:1.2rem;margin:9px 0;animation:pulse 1.6s infinite">❤️</div>
+      <p class="bd" style="font-size:0.97rem;margin:12px 0;color:#6B1A3A;font-style:italic">
+        "May your life always be filled with love, happiness, peace,<br>good health, and beautiful memories."
+      </p>
+      <div style="font-size:1.8rem;margin:12px 0;animation:pulse 1.4s infinite">🌺 🌸 🌺</div>
+      <button class="btn" onclick="replay()">🔁 Watch Again</button>
+      <p class="cred">Made with ❤️ — Especially for You</p>
+    </div>
+  </div>
+</div>
 
-    // Page Navigation
-    function showPage(pageName) {
-      document.querySelectorAll('.page').forEach(page => {
-        page.classList.remove('active');
-      });
-      
-      const targetPage = document.getElementById(pageName);
-      if (targetPage) {
-        targetPage.classList.add('active');
-      }
-      
-      document.querySelectorAll('.nav-links a').forEach(link => {
-        link.classList.remove('active');
-        if(link.getAttribute('onclick').includes(pageName)) {
-          link.classList.add('active');
-        }
-      });
-      
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+<!-- ████ NAV BAR ████ -->
+<div id="navBar" style="display:none">
+  <div class="arr hid" id="nPrev" onclick="navGo(-1)">&#8592;</div>
+  <div id="dotRow" style="display:flex;gap:7px;align-items:center"></div>
+  <div class="arr hid" id="nNext" onclick="navGo(1)">&#8594;</div>
+</div>
 
-    // Language Toggle
-    let currentLang = 'en';
-    
-    function setLanguage(lang) {
-      currentLang = lang;
-      
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.remove('active');
-        if(btn.textContent.includes(lang === 'en' ? 'English' : 'বাংলা')) {
-          btn.classList.add('active');
-        }
-      });
-      
-      if(lang === 'bn') {
-        document.body.classList.add('bangla');
-      } else {
-        document.body.classList.remove('bangla');
-      }
-      
-      document.querySelectorAll('[data-en]').forEach(el => {
-        const text = el.getAttribute('data-' + lang);
-        if (text) el.textContent = text;
-      });
-    }
+<script>
+// ═══ STATE ═══
+var cur=1, total=8;
+var pInv=null, fwOn=false;
+var musicOn=true; // starts on after splash
+var audioCtx=null, gainNode=null;
+var activeSrc=[], loopTmr=null;
+var parts=[], fw=[], confParts=[];
 
-    // Initialize when DOM is ready
-    document.addEventListener('DOMContentLoaded', function() {
-      createStars();
+// ═══ CANVAS ═══
+var pCvs=document.getElementById('pCvs'),pCtx=pCvs.getContext('2d');
+var fCvs=document.getElementById('fCvs'),fCtx=fCvs.getContext('2d');
+function rsz(){pCvs.width=fCvs.width=window.innerWidth;pCvs.height=fCvs.height=window.innerHeight;}
+window.addEventListener('resize',rsz);rsz();
+
+// ═══ MUSIC – Web Audio ═══
+var melody=[
+  {n:'G4',d:.4},{n:'G4',d:.2},{n:'A4',d:.6},{n:'G4',d:.6},{n:'C5',d:.6},{n:'B4',d:1.2},
+  {n:'G4',d:.4},{n:'G4',d:.2},{n:'A4',d:.6},{n:'G4',d:.6},{n:'D5',d:.6},{n:'C5',d:1.2},
+  {n:'G4',d:.4},{n:'G4',d:.2},{n:'G5',d:.6},{n:'E5',d:.6},{n:'C5',d:.6},{n:'B4',d:.6},{n:'A4',d:1.0},
+  {n:'F5',d:.4},{n:'F5',d:.2},{n:'E5',d:.6},{n:'C5',d:.6},{n:'D5',d:.6},{n:'C5',d:1.4}
+];
+var nf={C4:261.63,D4:293.66,E4:329.63,F4:349.23,G4:392,A4:440,B4:493.88,
+        C5:523.25,D5:587.33,E5:659.25,F5:698.46,G5:784,A5:880,B5:987.77};
+
+function initAudio(){
+  if(audioCtx)return;
+  audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+  gainNode=audioCtx.createGain();
+  gainNode.gain.value=0;
+  gainNode.connect(audioCtx.destination);
+}
+
+// Adds reverb-like warmth with a simple delay
+function playMelody(){
+  if(!audioCtx||!musicOn)return;
+  activeSrc.forEach(function(s){try{s.stop();}catch(e){}});
+  activeSrc=[];clearTimeout(loopTmr);
+  gainNode.gain.setTargetAtTime(0.16,audioCtx.currentTime,0.5);
+  var t=audioCtx.currentTime+0.15;
+
+  // Delay node for warmth
+  var delay=audioCtx.createDelay(0.5);
+  delay.delayTime.value=0.22;
+  var dGain=audioCtx.createGain();
+  dGain.gain.value=0.18;
+  delay.connect(dGain);dGain.connect(gainNode);
+
+  function sched(){
+    var lt=t;
+    melody.forEach(function(m){
+      var osc=audioCtx.createOscillator();
+      var g=audioCtx.createGain();
+      // Slightly detuned copy for warmth
+      var osc2=audioCtx.createOscillator();
+      var g2=audioCtx.createGain();
+      osc.type='sine';osc.frequency.value=nf[m.n]||440;
+      osc2.type='triangle';osc2.frequency.value=(nf[m.n]||440)*1.003;
+      osc.connect(g);g.connect(gainNode);g.connect(delay);
+      osc2.connect(g2);g2.connect(gainNode);
+      g.gain.setValueAtTime(0,lt);
+      g.gain.linearRampToValueAtTime(0.65,lt+0.04);
+      g.gain.setTargetAtTime(0,lt+m.d*0.72,0.09);
+      g2.gain.setValueAtTime(0,lt);
+      g2.gain.linearRampToValueAtTime(0.25,lt+0.04);
+      g2.gain.setTargetAtTime(0,lt+m.d*0.65,0.09);
+      osc.start(lt);osc.stop(lt+m.d+0.15);
+      osc2.start(lt);osc2.stop(lt+m.d+0.15);
+      activeSrc.push(osc,osc2);
+      lt+=m.d;
     });
+    var tot=melody.reduce(function(a,b){return a+b.d;},0);
+    t+=tot+0.6;
+    loopTmr=setTimeout(sched,(tot+0.6)*1000-200);
+  }
+  sched();
+}
 
-    // Prevent default on anchor clicks
-    document.querySelectorAll('a[href="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
+function startMusic(){
+  initAudio();
+  if(audioCtx.state==='suspended')audioCtx.resume();
+  musicOn=true;
+  document.getElementById('mBtn').textContent='🔊';
+  playMelody();
+}
+
+function toggleMusic(){
+  if(!audioCtx){startMusic();return;}
+  musicOn=!musicOn;
+  document.getElementById('mBtn').textContent=musicOn?'🔊':'🔇';
+  if(musicOn){
+    if(audioCtx.state==='suspended')audioCtx.resume();
+    playMelody();
+  } else {
+    gainNode.gain.setTargetAtTime(0,audioCtx.currentTime,0.4);
+    clearTimeout(loopTmr);
+    activeSrc.forEach(function(s){try{s.stop(audioCtx.currentTime+0.5);}catch(e){}});
+    activeSrc=[];
+  }
+}
+
+// ═══ SPLASH FLOATING HEARTS ═══
+(function(){
+  var fh=document.getElementById('fhDiv');
+  var em=['❤️','💕','💖','🌸','✨'];
+  for(var i=0;i<12;i++){
+    (function(idx){
+      var el=document.createElement('div');
+      el.className='fh';
+      el.textContent=em[idx%em.length];
+      el.style.left=Math.random()*100+'%';
+      el.style.bottom='0';
+      el.style.animationDuration=(5+Math.random()*6)+'s';
+      el.style.animationDelay=(Math.random()*4)+'s';
+      fh.appendChild(el);
+    })(i);
+  }
+})();
+
+// ═══ BEGIN (from splash) ═══
+function beginSurprise(){
+  startMusic();
+  var sp=document.getElementById('splash');
+  sp.classList.add('hide');
+  setTimeout(function(){sp.style.display='none';},900);
+  document.getElementById('navBar').style.display='flex';
+  buildNav();
+  goTo(1);
+}
+
+// ═══ PARTICLES ═══
+function mkPt(type){
+  var h=['❤️','💕','💖','💗','💝','🌸'];
+  var s=['✨','⭐','💫','🌟'];
+  var pool=type==='h'?h:s;
+  return{x:Math.random()*pCvs.width,y:pCvs.height+20,
+    em:pool[Math.floor(Math.random()*pool.length)],
+    sp:0.9+Math.random()*1.6,sz:13+Math.random()*13,
+    dr:(Math.random()-.5)*1.5,op:0.7+Math.random()*0.3,
+    rot:Math.random()*360,rv:(Math.random()-.5)*3};
+}
+function loopPts(){
+  pCtx.clearRect(0,0,pCvs.width,pCvs.height);
+  parts=parts.filter(function(p){return p.y>-30;});
+  confParts=confParts.filter(function(c){return c.y<pCvs.height+20;});
+  parts.forEach(function(p){
+    p.y-=p.sp;p.x+=p.dr;p.rot+=p.rv;
+    pCtx.save();
+    pCtx.globalAlpha=p.op*Math.min(1,(pCvs.height-p.y)/180);
+    pCtx.translate(p.x,p.y);pCtx.rotate(p.rot*Math.PI/180);
+    pCtx.font=p.sz+'px serif';pCtx.textAlign='center';
+    pCtx.fillText(p.em,0,0);pCtx.restore();
+  });
+  confParts.forEach(function(c){
+    c.y+=c.vy;c.x+=c.vx;c.rot+=c.rv;c.vy+=0.04;
+    pCtx.save();pCtx.translate(c.x,c.y);pCtx.rotate(c.rot*Math.PI/180);
+    pCtx.fillStyle=c.col;pCtx.globalAlpha=0.86;
+    pCtx.fillRect(-c.w/2,-c.h/2,c.w,c.h);pCtx.restore();
+  });
+  requestAnimationFrame(loopPts);
+}
+loopPts();
+
+function startH(){if(pInv)return;pInv=setInterval(function(){if(parts.length<44)parts.push(mkPt('h'));},270);}
+function startS(){if(pInv)return;pInv=setInterval(function(){if(parts.length<34)parts.push(mkPt('s'));},210);}
+function stopP(){clearInterval(pInv);pInv=null;}
+
+// ═══ FIREWORKS ═══
+function mkFW(x,y){
+  var hue=Math.random()*360,n=30+Math.floor(Math.random()*18);
+  for(var i=0;i<n;i++){
+    var a=(i/n)*Math.PI*2,sp=2+Math.random()*4;
+    fw.push({x:x,y:y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:1,hue:hue,sz:2+Math.random()*3});
+  }
+}
+function loopFW(){
+  if(!fwOn){fCtx.clearRect(0,0,fCvs.width,fCvs.height);return;}
+  fCtx.fillStyle='rgba(0,0,0,0.12)';fCtx.fillRect(0,0,fCvs.width,fCvs.height);
+  fw=fw.filter(function(f){return f.life>0.03;});
+  fw.forEach(function(f){
+    f.x+=f.vx;f.y+=f.vy;f.vy+=0.07;f.vx*=0.97;f.life*=0.956;
+    fCtx.save();fCtx.globalAlpha=f.life;
+    fCtx.fillStyle='hsl('+f.hue+',90%,65%)';
+    fCtx.shadowColor=fCtx.fillStyle;fCtx.shadowBlur=7;
+    fCtx.beginPath();fCtx.arc(f.x,f.y,f.sz,0,Math.PI*2);fCtx.fill();fCtx.restore();
+  });
+  requestAnimationFrame(loopFW);
+}
+var fwTmr=null;
+function startFW(){
+  fwOn=true;loopFW();
+  (function boom(){
+    if(!fwOn)return;
+    mkFW(80+Math.random()*(fCvs.width-160),60+Math.random()*(fCvs.height*.55));
+    fwTmr=setTimeout(boom,500+Math.random()*900);
+  })();
+}
+function stopFW(){fwOn=false;clearTimeout(fwTmr);fCtx.clearRect(0,0,fCvs.width,fCvs.height);}
+
+// ═══ CONFETTI ═══
+function launchConf(){
+  var cols=['#FFB6C1','#FF6B9D','#D4286A','#B76E79','#FFD700','#FF8FAD','#FFC0CB','#8B2252'];
+  for(var i=0;i<130;i++){
+    (function(ii){setTimeout(function(){
+      confParts.push({x:Math.random()*pCvs.width,y:-20,
+        w:6+Math.random()*9,h:3+Math.random()*5,
+        col:cols[Math.floor(Math.random()*cols.length)],
+        vy:1.8+Math.random()*2.8,vx:(Math.random()-.5)*2.8,
+        rot:Math.random()*360,rv:(Math.random()-.5)*9});
+    },ii*20);})(i);
+  }
+}
+
+// ═══ TYPING ═══
+function typeLines(id,lines,spd,gap,cb){
+  var el=document.getElementById(id);if(!el)return;el.innerHTML='';
+  var li=0;
+  function nxt(){
+    if(li>=lines.length){if(cb)cb();return;}
+    var p=document.createElement('p');el.appendChild(p);
+    setTimeout(function(){p.classList.add('in');},50);
+    var i=0,ln=lines[li];
+    var t=setInterval(function(){
+      if(i<ln.length){p.innerHTML=ln.slice(0,++i);}
+      else{clearInterval(t);li++;setTimeout(nxt,gap);}
+    },spd);
+  }
+  nxt();
+}
+function typeStr(id,str,spd,cb){
+  var el=document.getElementById(id);if(!el)return;el.textContent='';
+  var i=0;
+  var t=setInterval(function(){
+    if(i<str.length){el.textContent+=str[i++];}
+    else{clearInterval(t);if(cb)cb();}
+  },spd);
+}
+
+// ═══ STARS ═══
+function buildStars(){
+  var sf=document.getElementById('starF');if(!sf)return;sf.innerHTML='';
+  for(var i=0;i<85;i++){
+    var s=document.createElement('div');s.className='sdot';
+    s.style.cssText='left:'+Math.random()*100+'%;top:'+Math.random()*100+'%;'+
+      'animation-delay:'+Math.random()*3+'s;animation-duration:'+(2+Math.random()*3)+'s;'+
+      'width:'+(1+Math.random()*2.5)+'px;height:'+(1+Math.random()*2.5)+'px';
+    sf.appendChild(s);
+  }
+}
+
+// ═══ HEART RAIN (S8) ═══
+var hrInv=null;
+var heArr=['❤️','💕','💖','🌸','✨','💗'];
+function startHRain(){
+  if(hrInv)return;
+  hrInv=setInterval(function(){
+    if(!document.getElementById('sc8').classList.contains('on')){clearInterval(hrInv);hrInv=null;return;}
+    var el=document.createElement('div');el.className='hr';
+    el.textContent=heArr[Math.floor(Math.random()*heArr.length)];
+    el.style.cssText='left:'+Math.random()*100+'%;font-size:'+(1+Math.random()*1.4)+'rem;animation-duration:'+(3+Math.random()*4)+'s';
+    document.body.appendChild(el);
+    setTimeout(function(){el.remove();},8000);
+  },175);
+}
+
+// ═══ NAV ═══
+function buildNav(){
+  var dr=document.getElementById('dotRow');dr.innerHTML='';
+  for(var i=1;i<=total;i++){
+    var d=document.createElement('div');
+    d.className='dot'+(i===cur?' on':'');
+    (function(n){d.onclick=function(){goTo(n);};})(i);
+    dr.appendChild(d);
+  }
+  document.getElementById('nPrev').className='arr'+(cur===1?' hid':'');
+  document.getElementById('nNext').className='arr'+(cur===total?' hid':'');
+}
+function navGo(dir){var n=cur+dir;if(n>=1&&n<=total)goTo(n);}
+
+// ═══ SCENE ENTER ═══
+function onEnter(n){
+  stopP();stopFW();parts=[];fw=[];
+  if(n===1){startH();}
+  if(n===3){
+    launchConf();startH();
+    setTimeout(function(){
+      typeStr('celTyp','Today is your special day, and I hope every single moment is filled with happiness, warmth, and beautiful memories that last forever. 🌸',34);
+    },700);
+  }
+  if(n===4){
+    var tL=document.getElementById('tL'),tR=document.getElementById('tR');
+    var hB=document.getElementById('hBw'),hR=document.getElementById('hRow');
+    var btn=document.getElementById('s4b');
+    tL.classList.remove('go');tR.classList.remove('go');
+    hB.classList.remove('sh');hR.classList.remove('sh');
+    btn.style.opacity='0';btn.style.pointerEvents='none';
+    setTimeout(function(){tL.classList.add('go');tR.classList.add('go');},700);
+    setTimeout(function(){hB.classList.add('sh');},3000);
+    setTimeout(function(){hR.classList.add('sh');},3600);
+    setTimeout(function(){btn.style.opacity='1';btn.style.pointerEvents='auto';btn.style.transition='opacity 0.7s';},4200);
+    startS();
+  }
+  if(n===5){
+    startS();
+    var ws=document.querySelectorAll('.wish');
+    ws.forEach(function(w){w.classList.remove('in');});
+    ws.forEach(function(w,i){setTimeout(function(){w.classList.add('in');},300+i*300);});
+  }
+  if(n===7){
+    buildStars();startFW();
+    var lines=[
+      'Thank you for being such a wonderful person. 🌹',
+      'I hope this birthday becomes one of your happiest memories.',
+      'No matter what happens...',
+      'Keep smiling... ✨',
+      'Keep shining... 🌟',
+      'And never stop believing in yourself.',
+      'Because you are truly amazing. 💖'
+    ];
+    setTimeout(function(){
+      typeLines('finT',lines,28,680,function(){
+        var b=document.getElementById('finB');if(b)b.style.display='inline-flex';
       });
-    });
-  </script>
+    },600);
+  }
+  if(n===8){startFW();startH();launchConf();startHRain();}
+}
 
+// ═══ GO TO ═══
+function goTo(n){
+  document.querySelectorAll('.sc').forEach(function(s){s.classList.remove('on');});
+  cur=n;buildNav();
+  setTimeout(function(){
+    document.getElementById('sc'+n).classList.add('on');
+    onEnter(n);
+  },80);
+}
+
+// ═══ SCENE 1 MAGIC BTN ═══
+function startMagic(){
+  for(var i=0;i<22;i++)setTimeout(function(){parts.push(mkPt('h'));},i*50);
+  setTimeout(function(){goTo(2);},350);
+  setTimeout(function(){goTo(3);},3300);
+}
+
+// ═══ GIFT ═══
+function openGift(){
+  var gb=document.getElementById('gBox');
+  if(gb.classList.contains('op'))return;
+  gb.classList.add('op');gb.textContent='🎊';
+  document.getElementById('gHint').style.display='none';
+  for(var i=0;i<26;i++){
+    setTimeout(function(){parts.push(mkPt('h'));},i*35);
+    setTimeout(function(){parts.push(mkPt('s'));},i*35+18);
+  }
+  launchConf();
+  setTimeout(function(){document.getElementById('gMsg').style.display='block';},720);
+}
+
+// ═══ REPLAY ═══
+function replay(){
+  stopP();stopFW();clearInterval(hrInv);hrInv=null;
+  parts=[];fw=[];confParts=[];
+  var gb=document.getElementById('gBox');
+  if(gb){gb.textContent='🎁';gb.classList.remove('op');}
+  var gm=document.getElementById('gMsg');if(gm)gm.style.display='none';
+  var gh=document.getElementById('gHint');if(gh)gh.style.display='block';
+  document.querySelectorAll('.hr').forEach(function(e){e.remove();});
+  goTo(1);
+}
+</script>
 </body>
 </html>
